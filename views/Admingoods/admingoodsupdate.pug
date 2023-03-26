@@ -1,0 +1,39 @@
+extends ../common/common
+block admin
+ 
+  .mws-panel.grid_8
+   .mws-panel-header
+    span 商家入驻
+   .mws-panel-body.no-padding
+    form.mws-form(action='/admin/goodsdoupdate' method="POST" enctype="multipart/form-data")
+      .mws-form-inline
+        .mws-form-row
+          label.mws-form-label 书籍名称
+          .mws-form-item
+            input.large(type='text' name='foodname' value=`${resutl.foodname}`)
+        .mws-form-row
+          label.mws-form-label 书籍旧图片
+          .mws-form-item
+            img(src=`https://weq01.oss-cn-beijing.aliyuncs.com/${resutl.foodpic}`, alt="",width="100px")
+        .mws-form-row
+          label.mws-form-label 新图片
+          .mws-form-item
+            input.large(type='file' name='foodpic')
+          label.mws-form-label 描述语
+          .mws-form-item
+            input.large(type='text' name='descr' value=`${resutl.descr}`)
+        .mws-form-row
+          label.mws-form-label 书籍价格
+          .mws-form-item
+            input.large(type='text' name='price' value=`${resutl.price}`)
+        .mws-form-row
+          label.mws-form-label 所属商家
+          .mws-form-item
+            select.large(name="shoplist_id")
+              option(value="") --请选择--
+              -for(let v of pic)
+                option(value=`${v.id}`) #{v.shopname}
+      .mws-button-row
+        input(type="hidden" name="id" value=`${id}`)
+        input.btn.btn-danger(type='submit' value='更新')
+        input.btn(type='reset' value='重置')

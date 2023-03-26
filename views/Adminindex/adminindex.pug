@@ -1,0 +1,56 @@
+extends ../common/common
+block admin
+    div(class="box" id="main" style="width:800px;height:600px;border:1px solid skyblue;margin:20px auto")
+    input(type="hidden" id="dataArr" value=`${data}`)
+    script.
+        let arr=document.getElementById('dataArr').value
+        arr=arr.split(',')   
+        const myEcharts = echarts.init(document.getElementById('main'));
+             option = {
+                title: {
+                    text: '图书共享平台后台数据展示',
+                    left: 'center',
+                    textStyle:{
+                        color:'skyblue',
+                        fontSize:25
+                    }
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical', 
+                    left: 'left'
+                },
+                series: [
+                    {
+                        name: '数量',
+                        type: 'pie',
+                        radius: ['40%','70%'],
+                        data: [
+                            { value:arr[0], name: '管理员' },
+                            { value:arr[1], name: '入驻商家' },
+                            { value:arr[2], name: '注册会员' },
+                            { value:arr[3], name: '商家书籍数量' },
+                            { value:arr[4], name: '订单数量' },
+                            { value:arr[5], name: '评论人数' },
+
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)' 
+                            },
+                            label:{
+                                show:true,
+                                fontSize:40,
+                                fontWeight:'bold'
+                            }
+                        }
+                    }
+                ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myEcharts.setOption(option);
